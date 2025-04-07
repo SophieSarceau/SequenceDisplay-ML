@@ -1,5 +1,4 @@
 # Sequence Display
-
 ![Cover image](https://github.com/user-attachments/assets/3887f70b-594d-4ca5-9e04-aab3cb8be8c3)
 ## Sequence Display-Enabled Machine Learning for Protein Evolution
 ![ML Question](https://github.com/user-attachments/assets/4ec8c13e-1a08-44b0-931e-06f9b0ebe8d7)
