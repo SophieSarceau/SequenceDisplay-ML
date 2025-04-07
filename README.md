@@ -1,3 +1,3 @@
 # Sequence Display
-![github abstract](https://github.com/user-attachments/assets/82a9dcb7-2bb9-41e2-88b6-b1a1d790e14b)
+![github abstract_waifu2x_art_noise3_scale](https://github.com/user-attachments/assets/0e038117-d243-4ca2-9399-12a75441b4c8)
 Sequence Display is an innovative platform that enables, for the first time, the generation of **large-scale protein sequence–activity datasets**. By integrating these comprehensive sequence–activity datasets with **pre-trained pLMs**, the platform reconstructs fine-grained, **variant-specific activity landscapes**, facilitating the discovery of **high-performance protein variants**. We successfully applied this platform to evolve **_Staphylococcus lugdunensis_ Cas9 (SlugCas9)** for expanded PAM recognition.
