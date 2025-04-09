@@ -1,6 +1,6 @@
 # SequenceDisplay-ML
 
-This is the official repo for "Sequence Display enabled Machine Learning for Directed Protein Evolution - Slug-Cas9 Case".
+This is the official repo for "Sequence Display enabled Machine Learning for Protein Evolution - SlugCas9 Case".
 
 ---
 
@@ -19,7 +19,7 @@ bash ./env/conda_setup.bash
 ### 1.2 Source Code Modification
 Please refer to [ENV_README](./env/ENV_README.md).
 
-## 2. Data Preperation
+## 2. Data Preparation
 
 With Sequence Display, you will get mutated sequence and corresponding activity (average mutation number on four PAMs) pairs.
 You can find the processed data in the './data/processed/5nnk/5nnk_nng_mut_num.csv' file.
@@ -31,14 +31,14 @@ Asn,Gln,Leu,Ala,Glu,1725,0.7455,0.1426,0.4046,0.6857
 ```
 The first five columns are the mutated amino acids. The sixth column is the count of the 5NNK combinations in Sequence Display.
 The last four columns are the average mutation numbers on four PAMs (NNGA, NNGT, NNGC, NNGG).
-To ensure the confidence of the data, we only keep the data with a count greater than 100.
+To ensure the data's confidence, we only kept the data with a count greater than 100.
 
 ## 3. Model Training
 
 In this project, we utilize two protein language models (pLMs) as the backbone of our model: ESM-2 and SaProt.
-Please download the pre-trained models from this link, and put the model weights under `./data/params`.
+Please download the pre-trained models from this link: https://drive.google.com/drive/folders/1e6dtjGo7jNfAdiSCkvkubD48l42Vkyax?usp=drive_link, and put the model weights under `./data/params`.
 
-We recommend you to use GPUs with more than 40GB of memory for training. In addition, for better performance tracking, you are encoureged to use wandb.
+We recommend you use GPUs with more than 40GB of memory for training. In addition, for better performance tracking, you are encouraged to use wandb.
 
 ### 3.1 ESM-2
 All hyperparameters are set in `./config/config_esm2_train.yaml`.
@@ -57,7 +57,7 @@ python train_saprot.py
 ## 4. Ensemble Model Training
 
 To prepare for the virtual screening, we need to train the ensemble model.
-We split the data into 5 folds, and train the model on 4 folds and test on the remaining fold.
+We split the data into 5 folds, train the model on 4 folds, and test on the remaining fold.
 A total of 10 models are trained, including 5 ESM-2 models and 5 SaProt models.
 
 ### 4.1 ESM-2 Ensemble
