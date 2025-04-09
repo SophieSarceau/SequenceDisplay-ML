@@ -36,7 +36,7 @@ To ensure the data's confidence, we only kept the data with a count greater than
 ## 3. Model Training
 
 In this project, we utilize two protein language models (pLMs) as the backbone of our model: ESM-2 and SaProt.
-Please download the pre-trained models from this link: https://drive.google.com/drive/folders/1e6dtjGo7jNfAdiSCkvkubD48l42Vkyax?usp=drive_link, and put the model weights under `./data/params`.
+Please download the pre-trained models from this [link](https://drive.google.com/drive/folders/1e6dtjGo7jNfAdiSCkvkubD48l42Vkyax?usp=drive_link), and put the model weights under `./data/params`.
 
 We recommend you use GPUs with more than 40GB of memory for training. In addition, for better performance tracking, you are encouraged to use wandb.
 
