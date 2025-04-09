@@ -1,0 +1,29 @@
+# wandb setting
+wandb_key: ""
+wandb_entity: "deepcas9"
+wandb_project: "ESM2_FT"
+wandb_task: "saprot-12layers-[ft-11]"
+wandb_mode: "online" # Options: online, offline, disabled
+
+# training setting
+last_embed_region: -150
+lr: 0.0001
+weight_decay: 0.01
+patience: 10
+batch_size: 2
+num_workers: 1
+gpu_num: 2
+max_epochs: 100
+seed: 256
+strategy: "ddp" # Options: ddp, deepspeed_stage_1, deepspeed_stage_2
+
+# model setting
+fine_tune_layers: -1 # Options: 0, -1, ..., -layer_num. e.g. -1 means finetune the last layer
+embed_dim: 480 # Options: 480 (ESM-2 35M or SaProt 35M), 1280 (ESM-2 650M or SaProt 650M)
+pooling: "mean"
+
+# data setting
+save_dir: "saprot_35M_AF2"
+saprot_file: "./data/params/SaProt_35M_AF2.pt"
+mutation_file_path: "data/processed/5nnk/5nnk_nngg_mut_num.csv"
+seq_file_path: "data/protein/5nnk"
