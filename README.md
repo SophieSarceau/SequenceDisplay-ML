@@ -1,97 +1,137 @@
 # SequenceDisplay-ML
 
-This is the official repo for "Sequence Display enabled Machine Learning for Protein Evolution - SlugCas9 Case".
+Official repository for:  
+**"Sequence Display: Generating Large-Scale Sequence–Activity Datasets to Advance Universal Protein Evolution."**
 
 ---
 
 ![sdeml-abstract](./photo/sdeml-abstract.png)
-Sequence Display is an innovative platform that enables, for the first time, the generation of **large-scale protein sequence–activity datasets**. By integrating these comprehensive sequence–activity datasets with **pre-trained pLMs**, the platform reconstructs fine-grained, **variant-specific activity landscapes**, facilitating the discovery of **high-performance protein variants**. We successfully applied this platform to evolve **_Staphylococcus lugdunensis_ Cas9 (SlugCas9)** for expanded PAM recognition.
 
+## Overview
+
+Sequence Display is an experimental–computational platform enabling, for the first time, the large‑scale generation of protein sequence–activity datasets. By coupling these datasets with pre‑trained protein language models (pLMs), the platform reconstructs fine‑grained, variant‑level activity landscapes and accelerates discovery of high‑performance protein variants.  
+We demonstrate the platform by engineering **_Staphylococcus lugdunensis_ Cas9 (SlugCas9)** toward broadened PAM recognition.
+
+---
 
 ## 1. Environment Setup
 
-### 1.1 Conda Env Setup
-To set up the conda environment, please run the following command:
+### 1.1 Conda Environment
+Create and configure the environment:
 ```bash
 bash ./env/conda_setup.bash
 ```
 
-### 1.2 Source Code Modification
-Please refer to [ENV_README](./env/ENV_README.md).
+### 1.2 Source Code Adjustments
+Refer to: [ENV_README](./env/ENV_README.md).
+
+---
 
 ## 2. Data Preparation
 
-With Sequence Display, you will get mutated sequence and corresponding activity (average mutation number on four PAMs) pairs.
-You can find the processed data in the './data/processed/5nnk/5nnk_nng_mut_num.csv' file.
-The data is in the format of:
-```cs
+Sequence Display outputs (a) mutated sequence fragments (5 NNK positions) and (b) corresponding activity values (average mutation numbers across four PAM contexts).
+
+Processed data file:  
+`./data/processed/5nnk/5nnk_nng_mut_num.csv`
+
+Format:
+```text
 nnk1,nnk2,nnk3,nnk4,nnk5,count,NNGA,NNGT,NNGC,NNGG
 Asn,Asn,Met,Glu,Lys,265,0.7849,0.0981,0.4415,0.9283
 Asn,Gln,Leu,Ala,Glu,1725,0.7455,0.1426,0.4046,0.6857
 ```
-The first five columns are the mutated amino acids. The sixth column is the count of the 5NNK combinations in Sequence Display.
-The last four columns are the average mutation numbers on four PAMs (NNGA, NNGT, NNGC, NNGG).
-To ensure the data's confidence, we only kept the data with a count greater than 100.
 
-## 3. Model Training
+Field description:
+- Columns 1–5: Amino acids observed at the five NNK‑mutated positions (translated form).
+- Column 6 (count): Observed frequency of that 5‑tuple in Sequence Display.
+- Columns 7–10: Average mutation numbers under PAMs NNGA, NNGT, NNGC, NNGG.
 
-In this project, we utilize two protein language models (pLMs) as the backbone of our model: ESM-2 and SaProt.
-Please download the pre-trained models from this [link](https://drive.google.com/drive/folders/1e6dtjGo7jNfAdiSCkvkubD48l42Vkyax?usp=drive_link), and put the model weights under `./data/params`.
+Quality filter: Only entries with count > 100 are retained to ensure statistical reliability.
 
-We recommend you use GPUs with more than 40GB of memory for training. In addition, for better performance tracking, you are encouraged to use wandb.
+---
+
+## 3. Single-Model Training
+
+Two pLM backbones are supported: **ESM-2** and **SaProt**.  
+Download required pre-trained weights from:  
+https://drive.google.com/drive/folders/1e6dtjGo7jNfAdiSCkvkubD48l42Vkyax?usp=drive_link  
+Place files under: `./data/params`
+
+Resource guidance:
+- Recommended: ≥ 40 GB GPU memory.
+- Optional tracking: Weights & Biases (wandb) integration (configure in YAML).
 
 ### 3.1 ESM-2
-All hyperparameters are set in `./config/config_esm2_train.yaml`.
-To train the model, run the following command:
+Hyperparameters: `./config/config_esm2_train.yaml`  
+Run:
 ```bash
 python train_esm.py
 ```
 
 ### 3.2 SaProt
-All hyperparameters are set in `./config/config_saprot_train.yaml`.
-To train the model, run the following command:
+Hyperparameters: `./config/config_saprot_train.yaml`  
+Run:
 ```bash
 python train_saprot.py
 ```
 
-## 4. Ensemble Model Training
+---
 
-To prepare for the virtual screening, we need to train the ensemble model.
-We split the data into 5 folds, train the model on 4 folds, and test on the remaining fold.
-A total of 10 models are trained, including 5 ESM-2 models and 5 SaProt models.
+## 4. Ensemble Training
+
+Purpose: Improve robustness and enable virtual screening over unobserved 5NNK combinations.  
+Procedure: 5-fold split; for each fold, train on 4 folds, evaluate on the held‑out fold.  
+Total models: 10 (5 ESM-2 + 5 SaProt).
 
 ### 4.1 ESM-2 Ensemble
-All hyperparameters are set in `./config/config_esm2_ensemble.yaml`.
-To train the model, run the following command:
+Config: `./config/config_esm2_ensemble.yaml`  
+Run:
 ```bash
 python train_esm_ensemble.py
 ```
 
 ### 4.2 SaProt Ensemble
-All hyperparameters are set in `./config/config_saprot_ensemble.yaml`.
-To train the model, run the following command:
+Config: `./config/config_saprot_ensemble.yaml`  
+Run:
 ```bash
 python train_saprot_ensemble.py
 ```
 
+---
+
 ## 5. Virtual Screening
-With the trained ensemble model, we can perform virtual screening on the remaining 5NNK combinations.
+
+After ensemble training, screen the remaining (unseen) 5NNK sequence space.
 
 ### 5.1 ESM-2 Virtual Screening
-All hyperparameters are set in `./config/config_esm2_vs.yaml`.
-To perform virtual screening, run the following command:
+Config: `./config/config_esm2_vs.yaml`  
+Run:
 ```bash
 python esm_vs.py
 ```
 
 ### 5.2 SaProt Virtual Screening
-To accelerate the inference speed, we need to first tokenize the protein sequences.
-Run the preprocessing file:
+Pre-tokenize to accelerate inference:
 ```bash
 python saprot_vs_batch_conv.py
 ```
-
-Then, run the inference file:
+Then run inference:
 ```bash
 python saprot_vs.py
 ```
+
+---
+
+## 6. License and Attribution
+
+Licensed under Apache 2.0 (see LICENSE).  
+If you use the code, models, or datasets, cite the Sequence Display manuscript (update with final publication details).  
+Include a notice of any file modifications.
+
+---
+
+## 7. Disclaimer
+
+This repository is for research use. Performance on additional proteins or mutation regimes may require retraining or adaptation.
+
+---
