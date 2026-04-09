@@ -1,7 +1,16 @@
+<div align="center">
+
+<img src="./photo/SD-icon.png" alt="SequenceDisplay-ML logo" width="110" />
+
 # SequenceDisplay-ML
 
-Official repository for:  
-**"Sequence Display: Generating Large-Scale Sequence–Activity Datasets to Advance Universal Protein Evolution."**
+**Official repository for**  
+**"Sequence Display enables large-scale sequence–activity datasets for rapid protein evolution."**
+
+[![Paper](https://img.shields.io/badge/Nature%20Biotechnology-Paper-1f6feb?style=for-the-badge&logo=spring&logoColor=white)](https://www.nature.com/articles/s41587-026-03087-3)
+[![License](https://img.shields.io/badge/license-Apache%202.0-orange?style=for-the-badge)](./LICENSE)
+
+</div>
 
 ---
 
@@ -125,7 +134,7 @@ python saprot_vs.py
 ## 6. License and Attribution
 
 Licensed under Apache 2.0 (see LICENSE).  
-If you use the code, models, or datasets, cite the Sequence Display manuscript (update with final publication details).  
+If you use the code, models, or datasets, cite the Sequence Display manuscript.  
 Include a notice of any file modifications.
 
 ---
@@ -135,3 +144,17 @@ Include a notice of any file modifications.
 This repository is for research use. Performance on additional proteins or mutation regimes may require retraining or adaptation.
 
 ---
+
+## Citation
+
+If you find this repository useful, please cite:
+
+```bibtex
+@article{Cheng2026SequenceDisplay,
+  author  = {Linqi Cheng and Xinzhe Zheng and Shiyu Jason Jiang and Yu Hu and Yijie Liu and Kaiqiang Yang and Jinyan Rui and Haoxue Ding and Mengxi Zhang and Teng Yuan and Qianglan Lu and Haoxin Ye and Chen-Long Li and Yiming Guo and Zuotong Tian and Anna Qin and Boyang Zhou and Kevin K. Yang and Xiongyi Huang and Han Xiao},
+  title   = {Sequence Display enables large-scale sequence–activity datasets for rapid protein evolution},
+  journal = {Nature Biotechnology},
+  year    = {2026},
+  doi     = {10.1038/s41587-026-03087-3},
+  url     = {https://doi.org/10.1038/s41587-026-03087-3}
+}
