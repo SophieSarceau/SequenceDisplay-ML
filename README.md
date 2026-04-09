@@ -1,8 +1,6 @@
 <div align="center">
 
-<img src="./photo/SD-icon.png" alt="SequenceDisplay-ML logo" width="110" />
-
-# SequenceDisplay-ML
+<img src="./photo/SD-icon.png" alt="SequenceDisplay-ML logo" width="600" />
 
 **Official repository for**  
 **"Sequence Display enables large-scale sequence–activity datasets for rapid protein evolution."**
